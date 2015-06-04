@@ -1,1 +1,0 @@
-# dziedziczymy po paseczku?

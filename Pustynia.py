@@ -1,1 +1,0 @@
-class Pustynia(Teren):
