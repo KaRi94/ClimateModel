@@ -1,5 +1,6 @@
 import datetime
 from data.Zone import Zone
+import numpy as np
 
 
 class Earth():
@@ -7,13 +8,13 @@ class Earth():
     DATE = datetime.datetime(year=2015, month=1, day=15)
 
     def __init__(self, division, data):
-        self.radius = 6371
+        self.radius = 6367444.7
         self.division = division
         self.initial_data = data
         self.zones = self.create_zones()
 
     def get_area(self, lat1, lat2):
-        pass
+        return 2 * np.pi * self.radius ** 2 * np.abs(np.sin(lat1 * np.pi / 180) - np.sin(lat2 * np.pi / 180))
 
     def get_month(self):
         return Earth.DATE.month
