@@ -1,4 +1,6 @@
-class Paseczek(object):
+class Paseczek:
+    def __init__(self, ):
+        pass
 
 # dlugosc geo poczatkowa
 # dlugosc geo koncowa
