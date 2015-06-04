@@ -6,9 +6,10 @@ class Earth():
 
     DATE = datetime.datetime(year=2015, month=1, day=15)
 
-    def __init__(self, division):
+    def __init__(self, division, data):
         self.radius = 6371
         self.division = division
+        self.initial_data = data
         self.zones = self.create_zones()
 
     def get_area(self, lat1, lat2):
@@ -22,6 +23,6 @@ class Earth():
         zones = []
         start = -90
         while start < 90:
-            zones.append(Zone(start, start+step, self.get_area(start, start+step)))
+            zones.append(Zone(start, start+step, self.get_area(start, start+step), self.initial_data))
             start += step
         return zones

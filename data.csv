@@ -1,0 +1,5 @@
+lat,name,albedo,percentage
+-82.5,water,0.5,20
+-82.5,ice,0.8,60
+-67.5,water,0.5,10
+-67.5,ice,0.8,30
