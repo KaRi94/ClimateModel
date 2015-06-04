@@ -15,8 +15,8 @@ class Zone():
 
     def load_surface_types(self, data):
         surface_types = []
-        for type in data.get(self.latitude(), []):
-            surface_types.append(SurfaceType(type['name'], type['albedo'], type['percentage']))
+        for surface_type in data.get(self.latitude(), []):
+            surface_types.append(SurfaceType(surface_type['name'], surface_type['albedo'], surface_type['percentage']))
         return surface_types
 
     def latitude(self):
