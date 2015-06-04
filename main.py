@@ -6,10 +6,9 @@ from data.Zone import *
 earth = Earth()
 
 #test
-print(earth.radius)
+print(earth.get_area(-90, 90))
 
 # calculate absorbed energy (radiation) for every zone -> temperature
 # zone temperature -> calculate emitted energy (radiation) for every zone
 # zones temperature -> energy flow between two adjacent zone
 # calculate albedo changes (albedo<->temperature) ocean<->ice
-# czy komity dzialaja
