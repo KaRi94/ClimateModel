@@ -12,3 +12,4 @@ print(earth.radius)
 # zone temperature -> calculate emitted energy (radiation) for every zone
 # zones temperature -> energy flow between two adjacent zone
 # calculate albedo changes (albedo<->temperature) ocean<->ice
+# czy komity dzialaja
