@@ -1,0 +1,1 @@
+class Woda(Teren):
