@@ -5,7 +5,8 @@ import numpy as np
 
 class Earth():
 
-    DATE = datetime.datetime(year=2015, month=1, day=15)
+    DATE = datetime.datetime(year=2015, month=6, day=15)
+    AVERAGE_HEAT_CAPACITY = 5.3e8
 
     def __init__(self, division, data):
         self.radius = 6367444.7
@@ -16,7 +17,8 @@ class Earth():
     def get_area(self, lat1, lat2):
         return 2 * np.pi * self.radius ** 2 * np.abs(np.sin(lat1 * np.pi / 180) - np.sin(lat2 * np.pi / 180))
 
-    def get_month(self):
+    @classmethod
+    def get_month(cls):
         return Earth.DATE.month
 
     def create_zones(self):

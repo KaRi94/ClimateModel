@@ -11,7 +11,7 @@ class Zone():
         self.surface_types = self.load_surface_types(data)
 
     def __repr__(self):
-        return 'Lat: %s, Area: %s' % (self.latitude(), self.surface_area)
+        return 'Lat: %s, Area: %s (%f K)' % (self.latitude(), self.surface_area, self.temperature)
 
     def load_surface_types(self, data):
         surface_types = []
@@ -21,3 +21,7 @@ class Zone():
 
     def latitude(self):
         return (self.end_latitude+self.start_latitude)/2
+
+    def calculate_temperature(self, energy):
+        from data.Earth import Earth
+        self.temperature += energy/(Earth.AVERAGE_HEAT_CAPACITY*self.surface_area)
