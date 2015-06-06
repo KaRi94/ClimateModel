@@ -13,8 +13,8 @@ class Radiation():
 
     @classmethod
     def get_incoming_radiation(cls, zone):
-        from data.Earth import Earth
-        insolation = Radiation.MONTHLY_INSOLATION[zone.latitude()][Earth.get_month()-1]
+        insolation = Radiation.MONTHLY_INSOLATION[zone.latitude()][zone.earth.get_month()-1]
+        print(zone.latitude(), zone.earth.get_month()-1)
         insolation -= insolation*Radiation.ATMOSPHERE_EMITTED_COEFFICIENT
         # TODO read cloud reflectivity from CSV - narazie jeblem 0.1
         insolation -= insolation*0.1
@@ -28,4 +28,4 @@ class Radiation():
 
     @classmethod
     def calculate_emmited_radiation(cls, zone):
-        return -Radiation.STEFAN_BOLTZMAN_CONSTANT*zone.temperature**4
+        return -Radiation.STEFAN_BOLTZMAN_CONSTANT*zone.surface_area*zone.temperature**4

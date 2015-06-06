@@ -3,7 +3,8 @@ from data.SurfaceType import SurfaceType
 
 class Zone():
 
-    def __init__(self, start_latitude, end_latitude, surface_area, data):
+    def __init__(self, earth, start_latitude, end_latitude, surface_area, data):
+        self.earth = earth
         self.start_latitude = start_latitude
         self.end_latitude = end_latitude
         self.surface_area = surface_area
