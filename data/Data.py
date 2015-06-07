@@ -23,12 +23,10 @@ class Data():
         with open(self.file_name, newline='') as csvfile:
             rows = csv.reader(csvfile, delimiter=',')
             for row in list(rows)[1:]:
-                if not self.data.get(float(row[0])):
-                    self.data[float(row[0])] = []
-                self.data[float(row[0])].append({
+                self.data[float(row[0])] = {
                     'average': row[1],
                     'rms': float(row[2]),
-                })
+                }
 
     def load_insolation_data(self):
         with open(self.file_name, newline='') as csvfile:

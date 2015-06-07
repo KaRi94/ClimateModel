@@ -1,4 +1,5 @@
 import numpy as np
+
 from data.Date import Date
 
 from data.Zone import Zone
@@ -7,11 +8,11 @@ from data.Zone import Zone
 class Earth():
     AVERAGE_HEAT_CAPACITY = 5.3e8 * (1 - (1 - 100 / 6367444.7) ** 3)
 
-    def __init__(self, division, data):
+    def __init__(self, division, data, cloud_coverage):
         self.radius = 6367444.7
         self.division = division
         self.initial_data = data
-        self.zones = self.create_zones()
+        self.zones = self.create_zones(cloud_coverage)
         self.total_area = self.get_area(-90, 90)
         self.DATE = Date(year=2015, month=1)
 
@@ -25,11 +26,12 @@ class Earth():
     def average_temp(self):
         return sum([z.temperature * z.surface_area for z in self.zones]) / self.total_area
 
-    def create_zones(self):
+    def create_zones(self, cloud_coverage):
         step = 180/self.division
         zones = []
         start = -90
         while start < 90:
-            zones.append(Zone(self, start, start+step, self.get_area(start, start+step), self.initial_data))
+            zones.append(Zone(self, start, start + step, self.get_area(start, start + step), self.initial_data,
+                              cloud_coverage[(start + step / 2)]))
             start += step
         return zones

@@ -23,7 +23,7 @@ data.load_zone_data()
 cloud_cover.load_zone_cloud_coverage()
 print(cloud_cover.get_data())
 
-earth = Earth(12, data.get_data())
+earth = Earth(12, data.get_data(), cloud_cover.get_data())
 until = Date(year=3000, month=1)
 temp = False
 temperatures = []

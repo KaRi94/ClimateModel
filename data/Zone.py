@@ -2,13 +2,14 @@ from data.SurfaceType import SurfaceType
 
 
 class Zone():
-
-    def __init__(self, earth, start_latitude, end_latitude, surface_area, data):
+    def __init__(self, earth, start_latitude, end_latitude, surface_area, data, avg_cloud_coverage):
         self.earth = earth
         self.start_latitude = start_latitude
         self.end_latitude = end_latitude
         self.surface_area = surface_area
+        self.average_cloud_coverage = avg_cloud_coverage
         self.temperature = 0
+
         self.surface_types = self.load_surface_types(data)
 
     def __repr__(self):
