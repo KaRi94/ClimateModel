@@ -1,6 +1,5 @@
 import time
 
-from dateutil.relativedelta import relativedelta
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -19,14 +18,13 @@ y = np.arange(-90 + 7.5, 90, 15)
 
 
 data = Data('data.csv')
+cloud_cover = Data('zachmurzenie.csv')
 data.load_zone_data()
-earth = Earth(12, data.get_data())
-<<<<<<< Updated upstream
-until = datetime.datetime(year=3000, month=1, day=15)
-=======
-until = Date(year=3000, month=1)
+cloud_cover.load_zone_cloud_coverage()
+print(cloud_cover.get_data())
 
->>>>>>> Stashed changes
+earth = Earth(12, data.get_data())
+until = Date(year=3000, month=1)
 temp = False
 temperatures = []
 while earth.DATE < until:
