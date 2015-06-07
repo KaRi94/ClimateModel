@@ -1,3 +1,4 @@
+from data.Date import Date
 from data.SurfaceType import SurfaceType
 
 
@@ -26,4 +27,4 @@ class Zone():
 
     def calculate_temperature(self, energy):
         from data.Earth import Earth
-        self.temperature += energy/(Earth.AVERAGE_HEAT_CAPACITY*self.surface_area)
+        self.temperature += energy*Date.get_month_duration()/(Earth.AVERAGE_HEAT_CAPACITY*self.surface_area)

@@ -65,6 +65,7 @@ class Date:
             self.year += 1
             self.month = 1
 
-    def get_month_duration(self):
+    @classmethod
+    def get_month_duration(cls):
         # statystyczna dlugość miesiąca w sekundach
         return 2629743.8235498336

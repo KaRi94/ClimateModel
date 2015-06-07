@@ -6,7 +6,8 @@ from data.Zone import Zone
 
 
 class Earth():
-    AVERAGE_HEAT_CAPACITY = 5.3e8 * (1 - (1 - 100 / 6367444.7) ** 3)
+    LAYER_SIZE = 6367444.7
+    AVERAGE_HEAT_CAPACITY = 5.3e8 * (1 - (1 - LAYER_SIZE / 6367444.7) ** 3)
 
     def __init__(self, division, data, cloud_coverage):
         self.radius = 6367444.7
