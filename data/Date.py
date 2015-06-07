@@ -53,6 +53,9 @@ class Date:
             month = 12 + self.month - other.month
         return Date(year=year, month=month)
 
+    def __repr__(self):
+        return 'Year: %s Month: %s' % (self.year, self.month)
+
     def get_month(self):
         return self.month
 
