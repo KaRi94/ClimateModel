@@ -1,6 +1,5 @@
-import datetime
-
 import numpy as np
+from data.Date import Date
 
 from data.Zone import Zone
 
@@ -14,7 +13,7 @@ class Earth():
         self.initial_data = data
         self.zones = self.create_zones()
         self.total_area = self.get_area(-90, 90)
-        self.DATE = datetime.datetime(year=2015, month=6, day=15)
+        self.DATE = Date(year=2015, month=1)
 
 
     def get_area(self, lat1, lat2):

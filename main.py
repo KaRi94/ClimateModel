@@ -21,12 +21,17 @@ y = np.arange(-90 + 7.5, 90, 15)
 data = Data('data.csv')
 data.load_zone_data()
 earth = Earth(12, data.get_data())
+<<<<<<< Updated upstream
 until = datetime.datetime(year=3000, month=1, day=15)
+=======
+until = Date(year=3000, month=1)
+
+>>>>>>> Stashed changes
 temp = False
 temperatures = []
 while earth.DATE < until:
     # print('-----------------%s---------------------' % earth.DATE)
-    if until - earth.DATE <= datetime.timedelta(370):
+    if until - earth.DATE <= Date(year=1, month=1):
         temp = True
     for zone in earth.zones:
         zone.calculate_temperature(Radiation.calculate_absorbed_radiation(zone))
@@ -47,7 +52,7 @@ while earth.DATE < until:
         plt.draw()  # ponowne rysowanie
         time.sleep(2)
         del temperatures[:]
-    earth.DATE += relativedelta(months=1)
+    earth.DATE.step()
 
 
 # calculate absorbed energy (radiation) for every zone -> temperature
