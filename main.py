@@ -16,13 +16,12 @@ plt.rcParams['font.size'] = 18
 plt.ion()
 x = [0]
 y = np.arange(-90 + 7.5, 90, 15)
-linia, = plt.plot([], [], 'ob', ms=10)
+
 
 data = Data('data.csv')
 data.load_zone_data()
 earth = Earth(12, data.get_data())
 until = datetime.datetime(year=3000, month=1, day=15)
-
 temp = False
 temperatures = []
 while earth.DATE < until:
@@ -38,6 +37,7 @@ while earth.DATE < until:
 
         #    rysuje interatywny wykres ostatniego roku
     if temp:
+        linia, = plt.plot([], [], 'ob', ms=10)
         x = np.array(temperatures)
         print(x)
         linia.set_xdata(x)
