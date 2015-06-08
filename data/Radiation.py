@@ -25,7 +25,7 @@ class Radiation():
     @classmethod
     def calculate_absorbed_radiation(cls, zone):
         radiation = Radiation.get_incoming_radiation(zone)
-        absorbed_radiation = sum([zone.surface_area*surface.percentage/100*radiation*(1-surface.albedo) for surface in zone.surface_types])/len(zone.surface_types)
+        absorbed_radiation = sum([zone.surface_area*surface.percentage/100*radiation*(1-surface.albedo) for surface in zone.surface_types])
         return absorbed_radiation
 
     # TODO wpływ zachmurzenia na emisje promieniowania podczerwonego (narazie zaniedbujemy)
