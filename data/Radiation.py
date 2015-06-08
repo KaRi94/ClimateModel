@@ -1,5 +1,4 @@
 import numpy as np
-
 from data.Data import Data
 
 
@@ -17,11 +16,9 @@ class Radiation():
     @classmethod
     def get_incoming_radiation(cls, zone):
         insolation = Radiation.MONTHLY_INSOLATION[zone.latitude()][zone.earth.get_month()-1]
-        # print(zone.latitude(), zone.earth.get_month()-1)
 
         insolation -= insolation * (Radiation.CLOUD_ALBEDO * np.random.normal(
             zone.average_cloud_coverage['average'], zone.average_cloud_coverage['rms']))
-        # TODO read cloud reflectivity from CSV
         insolation -= insolation * Radiation.ATMOSPHERE_REFLECTED_COEFFICIENT
         return insolation
 
@@ -31,8 +28,10 @@ class Radiation():
         absorbed_radiation = sum([zone.surface_area*surface.percentage/100*radiation*(1-surface.albedo) for surface in zone.surface_types])/len(zone.surface_types)
         return absorbed_radiation
 
-    # zakladamy ze zachmurzenie nie wplywa na emisje promieniowania podczerwonego
+    # TODO wpływ zachmurzenia na emisje promieniowania podczerwonego (narazie zaniedbujemy)
     @classmethod
     def calculate_emmited_radiation(cls, zone):
-        return -(
-        1 - Radiation.GREEN_HOUSE_EFFECT_COEFFICIENT) * Radiation.STEFAN_BOLTZMAN_CONSTANT * zone.surface_area * zone.temperature **4
+        return -(1 - Radiation.GREEN_HOUSE_EFFECT_COEFFICIENT) * \
+               Radiation.STEFAN_BOLTZMAN_CONSTANT * \
+               zone.surface_area * \
+               zone.temperature **4

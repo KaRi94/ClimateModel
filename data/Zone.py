@@ -25,6 +25,6 @@ class Zone():
     def latitude(self):
         return (self.end_latitude+self.start_latitude)/2
 
-    def calculate_temperature(self, energy):
+    def calculate_temperature(self, power):
         from data.Earth import Earth
-        self.temperature += energy*Date.get_month_duration()/(Earth.AVERAGE_HEAT_CAPACITY*self.surface_area)
+        self.temperature += power*Date.get_month_duration()/(Earth.AVERAGE_HEAT_CAPACITY*self.surface_area)
