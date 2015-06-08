@@ -6,11 +6,10 @@ from data.Data import Data
 class Radiation():
 
     SOLAR_CONSTANT = 1367
-    ATMOSPHERE_REFLECTED_COEFFICIENT = 0.06  # zwiazwiane z gazami atmosfery ale nie z zachmurzeniem
+    ATMOSPHERE_REFLECTED_COEFFICIENT = 0.0  # zwiazwiane z gazami atmosfery ale nie z zachmurzeniem
     GREEN_HOUSE_EFFECT_COEFFICIENT = 0.4
     STEFAN_BOLTZMAN_CONSTANT = 5.670e-8
-
-    CLOUD_ALBEDO = 0.15
+    CLOUD_ALBEDO = 0.10
     data = Data('insolation.csv')
     data.load_insolation_data()
     MONTHLY_INSOLATION = data.get_data()
@@ -20,11 +19,10 @@ class Radiation():
         insolation = Radiation.MONTHLY_INSOLATION[zone.latitude()][zone.earth.get_month()-1]
         # print(zone.latitude(), zone.earth.get_month()-1)
 
-        insolation -= insolation * (
-        Radiation.ATMOSPHERE_REFLECTED_COEFFICIENT + Radiation.CLOUD_ALBEDO * np.random.normal(
+        insolation -= insolation * (Radiation.CLOUD_ALBEDO * np.random.normal(
             zone.average_cloud_coverage['average'], zone.average_cloud_coverage['rms']))
         # TODO read cloud reflectivity from CSV - narazie jeblem 0.1
-        insolation -= insolation*0.1
+        insolation -= insolation * Radiation.ATMOSPHERE_REFLECTED_COEFFICIENT
         return insolation
 
     @classmethod
