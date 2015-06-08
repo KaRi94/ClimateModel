@@ -9,6 +9,7 @@ from data.Zone import *
 
 
 
+
 # rzeczy do wykresu
 plt.rcParams['font.size'] = 18
 # plt.ion()
@@ -33,7 +34,7 @@ while earth.DATE < until:
     for zone in earth.zones:
         zone.calculate_temperature(Radiation.calculate_absorbed_radiation(zone))
         zone.calculate_temperature(Radiation.calculate_emmited_radiation(zone))
-        average_temp.append(earth.average_temp())
+    average_temp.append(earth.average_temp())
         if temp:
             temperatures.append(zone.temperature)
 
