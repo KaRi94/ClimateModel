@@ -21,7 +21,7 @@ class Radiation():
 
         insolation -= insolation * (Radiation.CLOUD_ALBEDO * np.random.normal(
             zone.average_cloud_coverage['average'], zone.average_cloud_coverage['rms']))
-        # TODO read cloud reflectivity from CSV - narazie jeblem 0.1
+        # TODO read cloud reflectivity from CSV
         insolation -= insolation * Radiation.ATMOSPHERE_REFLECTED_COEFFICIENT
         return insolation
 
