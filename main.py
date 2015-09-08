@@ -1,5 +1,8 @@
+import time
+
 import matplotlib.pyplot as plt
 import numpy as np
+
 from data.Data import Data
 from data.Earth import *
 from data.Radiation import *
@@ -9,7 +12,7 @@ from data.Zone import *
 
 # rzeczy do wykresu
 plt.rcParams['font.size'] = 18
-# plt.ion()
+plt.ion()
 x = [0]
 y = np.arange(-90 + 7.5, 90, 15)
 average_temp = []
@@ -32,24 +35,25 @@ while earth.DATE < until:
         zone.calculate_temperature(Radiation.calculate_emmited_radiation(zone))
         if temp:
             temperatures.append(zone.temperature)
-        average_temp.append(earth.average_temp())
+    average_temp.append(earth.average_temp())
 
         #    rysuje interatywny wykres ostatniego roku
     if temp:
-        # linia, = plt.plot([], [], 'ob', ms=10)
-        # x = np.array(temperatures)
-        # print(x)
-        # linia.set_xdata(x)
-        # linia.set_ydata(y)
-        # plt.title(earth.DATE)
-        # plt.axis([np.min(x) * 1.05, np.max(x) * 1.05, -90, 90])
-        # plt.draw()  # ponowne rysowanie
-        # time.sleep(0.5)
+        linia, = plt.plot([], [], 'ob', ms=10)
+        x = np.array(temperatures)
+        print(x)
+        linia.set_xdata(x)
+        linia.set_ydata(y)
+        plt.title(earth.DATE)
+        plt.axis([np.min(x) * 1.05, np.max(x) * 1.05, -90, 90])
+        plt.draw()  # ponowne rysowanie
+        time.sleep(1)
         del temperatures[:]
     earth.DATE.step()
-print(len(np.array(average_temp)))
-plt.plot((np.arange(0, len(np.array(average_temp)), 1) / 12), np.array(average_temp), 'k-', lw=2)
-plt.show()
+# print(average_temp[-1])
+# years=np.arange(0, len(np.array(average_temp))/12, 1/12)
+# plt.plot(years , np.array(average_temp), 'k-', lw=2)
+# plt.show()
 
 
 # TODO: calculate albedo changes (albedo<->temperature) ocean<->ice
