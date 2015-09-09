@@ -4,12 +4,13 @@ from data.SurfaceType import SurfaceType
 
 class Zone():
     def __init__(self, earth, start_latitude, end_latitude, surface_area, data, avg_cloud_coverage):
+        from data.Earth import Earth
         self.earth = earth
         self.start_latitude = start_latitude
         self.end_latitude = end_latitude
         self.surface_area = surface_area
         self.average_cloud_coverage = avg_cloud_coverage
-        self.temperature = 0
+        self.temperature = Earth.INITIAL_EARTH_TEMPERATURE
 
         self.surface_types = self.load_surface_types(data)
 
@@ -28,3 +29,15 @@ class Zone():
     def calculate_temperature(self, power):
         from data.Earth import Earth
         self.temperature += power*Date.get_month_duration()/(Earth.AVERAGE_HEAT_CAPACITY*self.surface_area)
+
+    def get_water_surface(self):
+        for surface in self.surface_types:
+            if surface.name == 'water':
+                return surface
+        return None
+
+    def get_ice_surface(self):
+        for surface in self.surface_types:
+            if surface.name == 'ice':
+                return surface
+        return None

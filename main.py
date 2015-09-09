@@ -33,6 +33,8 @@ while earth.DATE < until:
     for zone in earth.zones:
         zone.calculate_temperature(Radiation.calculate_absorbed_radiation(zone))
         zone.calculate_temperature(Radiation.calculate_emmited_radiation(zone))
+        earth.calculate_energy_flow_between_zones()
+        earth.calculate_albedo_changes_due_to_water_phase_transitions()
         if temp:
             temperatures.append(zone.temperature)
     average_temp.append(earth.average_temp())
@@ -57,4 +59,3 @@ while earth.DATE < until:
 
 
 # TODO: calculate albedo changes (albedo<->temperature) ocean<->ice
-# TODO: zones temperature -> energy flow between two adjacent zone
