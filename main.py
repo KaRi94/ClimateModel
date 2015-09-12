@@ -18,12 +18,14 @@ y = np.arange(-90 + 7.5, 90, 15)
 average_temp = []
 
 data = Data('surface_data.csv')
+complex_data = Data('Scripts/land_cover/land_coverage_type.csv')
 cloud_cover = Data('zachmurzenie.csv')
 data.load_zone_data()
+complex_data.load_complex_zone_data()
 cloud_cover.load_zone_cloud_coverage()
 
-earth = Earth(12, data.get_data(), cloud_cover.get_data())
-until = Date(year=1000, month=1)
+earth = Earth(12, complex_data.get_data(), cloud_cover.get_data())
+until = Date(year=100, month=1)
 temp = False
 temperatures = []
 while earth.DATE < until:
@@ -33,6 +35,8 @@ while earth.DATE < until:
     for zone in earth.zones:
         zone.calculate_temperature(Radiation.calculate_absorbed_radiation(zone))
         zone.calculate_temperature(Radiation.calculate_emmited_radiation(zone))
+        earth.calculate_energy_flow_between_zones()
+        earth.calculate_albedo_changes_due_to_water_phase_transitions()
         if temp:
             temperatures.append(zone.temperature)
     average_temp.append(earth.average_temp())
@@ -57,4 +61,3 @@ while earth.DATE < until:
 
 
 # TODO: calculate albedo changes (albedo<->temperature) ocean<->ice
-# TODO: zones temperature -> energy flow between two adjacent zone
