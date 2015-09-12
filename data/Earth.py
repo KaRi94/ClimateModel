@@ -8,7 +8,7 @@ class Earth():
     EARTH_RADIUS = 6364000
     LAYER_SIZE = 6367444.7
     AVERAGE_HEAT_CAPACITY = 5.3e8 * (1 - (1 - LAYER_SIZE / 6367444.7) ** 3)
-    THERMAL_CONDUCTIVITY = 1e8
+    THERMAL_CONDUCTIVITY = 1e7
     WATER_LATENT_HEAT_PERCENTAGE_COEFFICIENT = 334000 * 100
     MELTING_POINT = 273.13
     INITIAL_EARTH_TEMPERATURE = 0
@@ -66,6 +66,7 @@ class Earth():
 
     def calculate_albedo_changes_due_to_water_phase_transitions(self):
         for zone in self.zones:
+            calculated = False
             if zone.temperature > Earth.MELTING_POINT:
                 ice = zone.get_ice_surface()
                 if ice and ice.percentage:
@@ -73,6 +74,7 @@ class Earth():
                     delta_percentage = Earth.WATER_LATENT_HEAT_PERCENTAGE_COEFFICIENT / zone.surface_area
                     water.percentage += delta_percentage
                     ice.percentage -= delta_percentage
+                    calculated = True
             else:
                 water = zone.get_water_surface()
                 if water and water.percentage:
@@ -80,13 +82,15 @@ class Earth():
                     delta_percentage = Earth.WATER_LATENT_HEAT_PERCENTAGE_COEFFICIENT / zone.surface_area
                     water.percentage -= delta_percentage
                     ice.percentage += delta_percentage
+                    calculated = True
 
-            if water.percentage < 0.0:
-                water.percentage = 0.0
-            if water.percentage > 100.0:
-                water.percentage = 100.0
-            if ice.percentage < 0.0:
-                ice.percentage = 0.0
-            if ice.percentage > 100.0:
-                ice.percentage = 100.0
+            if calculated:
+                if water.percentage < 0.0:
+                    water.percentage = 0.0
+                if water.percentage > 100.0:
+                    water.percentage = 100.0
+                if ice.percentage < 0.0:
+                    ice.percentage = 0.0
+                if ice.percentage > 100.0:
+                    ice.percentage = 100.0
 

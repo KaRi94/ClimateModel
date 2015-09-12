@@ -32,12 +32,12 @@ class Zone():
 
     def get_water_surface(self):
         for surface in self.surface_types:
-            if surface.name == 'water':
+            if surface.name == 'Water':
                 return surface
         return None
 
     def get_ice_surface(self):
         for surface in self.surface_types:
-            if surface.name == 'ice':
+            if surface.name == 'Snow_and_ice':
                 return surface
         return None
