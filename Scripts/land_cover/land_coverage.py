@@ -1,6 +1,7 @@
 import re
 import sys
 import os
+import csv
 
 import numpy as np
 
@@ -9,7 +10,9 @@ def get_area(lat1, lat2, radius):
     return 2 * np.pi * radius ** 2 * np.abs(np.sin(lat1 * np.pi / 180) - np.sin(lat2 * np.pi / 180))
 
 
-zone_size = 15.0
+zone_size = 15
+radius = 6367444.7
+earth_area = get_area(-90, 90, radius)
 
 # TODO import data from file
 with open('global_2012_hd.asc', 'r') as plik:
@@ -82,9 +85,14 @@ except Exception as e:
     sys.exit()
 x = np.loadtxt('land_coverage_type.csv')
 os.remove('land_coverage_type.csv')
-radius = 6367444.7
-f_handle = open('land_coverage_type.csv', 'ab')
-earth_area = get_area(-90, 90, radius)
+
+L = []
+L.append(['lat', 'Water', 'Evergreen_Needleleaf_forest', 'Evergreen_Broadleaf_forest', 'Deciduous_Needleleaf_forest',
+          'Deciduous_Broadleaf_forest', 'Mixed_forest', 'Closed_shrublands', 'Open_shrublands', 'Woody_savannas',
+          'Savannas',
+          'Grasslands', 'Permanent_wetlands', 'Croplands', 'Urban_and_built-up', 'Cropland/Natural_vegetation_mosaic',
+          'Snow_and_ice', 'Barren_or_sparsely_vegetated'])
+
 for i in range(-90, 90, int(zone_size)):
     zone_area = get_area(i, i + int(zone_size), radius)
     l = np.zeros(x[2 * i + 180].size)
@@ -92,5 +100,8 @@ for i in range(-90, 90, int(zone_size)):
         k = get_area(x[(2 * j) // 10 + 180][0], x[(2 * j) // 10 + 180][0] + cellsize, radius) / zone_area
         l += k * x[(2 * j) // 10 + 180]
     l[0] = (i + zone_size / 2)
-    np.savetxt(f_handle, l, fmt='%.7e', delimiter=',', newline=',', header='\n', comments='')
-f_handle.close()
+    L.append(l.tolist())
+
+with open('land_coverage_type.csv', 'w') as f:
+    writer = csv.writer(f, delimiter=',', lineterminator='\n')
+    writer.writerows(L)

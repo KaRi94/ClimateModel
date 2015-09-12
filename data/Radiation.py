@@ -1,6 +1,6 @@
 import numpy as np
-import constants
 
+import constants
 from data.Data import Data
 
 
@@ -13,7 +13,7 @@ class Radiation:
     def get_incoming_radiation(cls, zone):
         """
         Calculates incoming radiation on particular zone
-        It take into account radiation reflected from the atmosphere and clouds
+        It takes into account radiation reflected from the atmosphere and clouds
         :param zone:
         :return float: insolation of particular zone:
         """

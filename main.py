@@ -17,10 +17,9 @@ x = [0]
 y = np.arange(-90 + 7.5, 90, 15)
 average_temp = []
 
-data = Data('surface_data.csv')
+
 complex_data = Data('Scripts/land_cover/land_coverage_type.csv')
-cloud_cover = Data('zachmurzenie.csv')
-data.load_zone_data()
+cloud_cover = Data('Scripts/cloudiness/zachmurzenie.csv')
 complex_data.load_complex_zone_data()
 cloud_cover.load_zone_cloud_coverage()
 

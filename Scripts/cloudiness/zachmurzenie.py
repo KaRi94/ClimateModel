@@ -14,7 +14,7 @@ pk = open('zachmurzenie.csv', 'w')
 krok = 15
 licznik = -90 + krok / 2
 ilosc_paseczkow = int(krok / 2.5)
-
+pk.write('lat,average,rms\n')
 for i in range(0, len(x), 144 * ilosc_paseczkow):
     pk.write(str(licznik) + ',' + str(
         sum(x[i:i + 144 * ilosc_paseczkow]) / len(x[i:i + 144 * ilosc_paseczkow]) / 100) + ',' + str(

@@ -1,4 +1,5 @@
 import csv
+
 from data.SurfaceType import SurfaceType
 
 
@@ -27,7 +28,7 @@ class Data:
             for row in list(rows)[1:]:
                 if not self.data.get(float(row[0])):
                     self.data[float(row[0])] = []
-                for i in range(1, len(row)-1):
+                for i in range(1, len(row)):
                     self.data[float(row[0])].append({
                         'name': surfaces[i-1],
                         'albedo': float(SurfaceType.SURFACE_TYPES.get(surfaces[i-1], 0)),
