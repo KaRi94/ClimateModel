@@ -5,7 +5,7 @@ from data.Data import Data
 
 
 class Radiation:
-    data = Data('insolation.csv')
+    data = Data('data/initial_model_data/insolation.csv')
     data.load_insolation_data()
     MONTHLY_INSOLATION = data.get_data()
 

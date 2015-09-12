@@ -11,7 +11,7 @@ class Earth:
         self.division = division
         self.zones = self.create_zones(surface_data, cloud_coverage)
         self.total_area = self.get_area(-90, 90)
-        self.DATE = Date(year=0, month=1)
+        self.DATE = Date(year=constants.START_YEAR, month=1)
 
     def get_circumference(self, lat):
         return self.radius * np.cos(lat * np.pi / 180)

@@ -9,8 +9,8 @@ def odchylenie(x):
         wariancja += (i - average) ** 2
     return np.sqrt(wariancja / len(x)) / 100
 
-with open('dane_zachmurzenie.txt', 'r') as plik:    x = [float(liczba) for liczba in plik.readlines()[0].split(' ')]
-pk = open('zachmurzenie.csv', 'w')
+with open('Scripts/cloudiness/dane_zachmurzenie.txt', 'r') as plik:    x = [float(liczba) for liczba in plik.readlines()[0].split(' ')]
+pk = open('data/initial_model_data/cloudiness.csv', 'w')
 krok = 15
 licznik = -90 + krok / 2
 ilosc_paseczkow = int(krok / 2.5)
