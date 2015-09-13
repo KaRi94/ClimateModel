@@ -15,7 +15,7 @@ radius = 6367444.7
 earth_area = get_area(-90, 90, radius)
 
 # TODO import data from file
-with open('global_2012_hd.asc', 'r') as plik:
+with open('Scripts/land_cover/global_2012_hd.asc', 'r') as plik:
     nrows = int(re.search(r'\d+', str(plik.readline())).group())
     ncol = int(re.search(r'\d+', str(plik.readline())).group())
     xllcorner = float(re.findall(r"[-+]?\d*\.\d+|\d+", str(plik.readline()))[0])
@@ -23,7 +23,7 @@ with open('global_2012_hd.asc', 'r') as plik:
     cellsize = float(re.findall(r"\d*\.\d+|\d+", str(plik.readline()))[0])
     x = [int(liczba) for liczba in plik.readlines()[1].split()]
 
-pk = open('land_coverage_type.csv', 'w')
+pk = open('data/initial_model_data/land_coverage_type.csv', 'w')
 
 number_of_y = int(360 / cellsize)
 step = 0.02
@@ -83,8 +83,8 @@ try:
 except Exception as e:
     print('Wrong zone width\n')
     sys.exit()
-x = np.loadtxt('land_coverage_type.csv')
-os.remove('land_coverage_type.csv')
+x = np.loadtxt('data/initial_model_data/land_coverage_type.csv')
+os.remove('data/initial_model_data/land_coverage_type.csv')
 
 L = []
 L.append(['lat', 'Water', 'Evergreen_Needleleaf_forest', 'Evergreen_Broadleaf_forest', 'Deciduous_Needleleaf_forest',
@@ -102,6 +102,6 @@ for i in range(-90, 90, int(zone_size)):
     l[0] = (i + zone_size / 2)
     L.append(l.tolist())
 
-with open('land_coverage_type.csv', 'w') as f:
+with open('data/initial_model_data/land_coverage_type.csv', 'w') as f:
     writer = csv.writer(f, delimiter=',', lineterminator='\n')
     writer.writerows(L)
