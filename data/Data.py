@@ -52,7 +52,6 @@ class Data:
         with open(self.file_name, newline='') as csvfile:
             rows = csv.reader(csvfile, delimiter='\t')
             for row in list(rows)[2:]:
-                print(row)
                 if not self.data.get(float(row[0])):
                     self.data[float(row[0])] = []
                 self.data[float(row[0])] = [float(x) for x in row[1:-1]]
