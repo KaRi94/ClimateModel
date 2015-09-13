@@ -9,6 +9,7 @@ class Data:
         self.data = {}
 
     def load_zone_data(self):
+        self.data = {}
         with open(self.file_name, newline='') as csvfile:
             rows = csv.reader(csvfile, delimiter=',')
             for row in list(rows)[1:]:
@@ -21,6 +22,7 @@ class Data:
                 })
 
     def load_complex_zone_data(self):
+        self.data = {}
         with open(self.file_name, newline='') as csvfile:
             rows = csv.reader(csvfile, delimiter=',')
             rows = list(rows)
@@ -36,6 +38,7 @@ class Data:
                     })
 
     def load_zone_cloud_coverage(self):
+        self.data = {}
         with open(self.file_name, newline='') as csvfile:
             rows = csv.reader(csvfile, delimiter=',')
             for row in list(rows)[1:]:
@@ -45,17 +48,14 @@ class Data:
                 }
 
     def load_insolation_data(self):
+        self.data = {}
         with open(self.file_name, newline='') as csvfile:
-            rows = csv.reader(csvfile, delimiter=' ')
+            rows = csv.reader(csvfile, delimiter='\t')
             for row in list(rows)[2:]:
+                print(row)
                 if not self.data.get(float(row[0])):
                     self.data[float(row[0])] = []
                 self.data[float(row[0])] = [float(x) for x in row[1:-1]]
-            l = sorted([(key, value) for key, value in self.data.items()], key=lambda x: x[0])
-            self.data = {}
-            for i in range(len(l)-1):
-                self.data[(l[i][0]+l[i+1][0])/2] = [(x+y)/2 for x, y in zip(l[i][1], l[i+1][1])]
-                i += 2
 
     def get_data(self):
         return self.data

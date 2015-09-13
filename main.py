@@ -1,4 +1,3 @@
-import subprocess
 import os
 import time
 
@@ -12,8 +11,6 @@ from data.Zone import *
 
 # LOADING DATA FROM FILES
 print('LOADING DATA FROM FILES...')
-# subprocess.call("./Scripts/land_cover/land_coverage.py", shell=True)
-# subprocess.call("Scripts/cloudiness/cloudiness.py", shell=True)
 os.system("python3 Scripts/land_cover/land_coverage.py")
 os.system("python3 Scripts/cloudiness/cloudiness.py")
 
