@@ -1,9 +1,8 @@
 import os
 import time
-
 import matplotlib.pyplot as plt
 import numpy as np
-
+from mpl_toolkits.basemap import Basemap
 from data.Earth import *
 from data.Radiation import *
 from data.Zone import *
@@ -26,13 +25,8 @@ print('BUILDING STRUCTURE OF THE EARTH...')
 earth = Earth(12, complex_data.get_data(), cloud_cover.get_data())
 
 
-# rzeczy do wykresu
-plt.rcParams['font.size'] = 18
-plt.ion()
-x = [0]
-y = np.arange(-90 + 7.5, 90, 15)
-average_temp = []
 
+average_temp = []
 
 # STARTING SIMULATION
 print('STARTING SIMULATION...')
@@ -41,7 +35,7 @@ temp = False
 temperatures = []
 while earth.DATE < until:
     # print('-----------------%s---------------------' % earth.DATE)
-    if until - earth.DATE <= Date(year=1, month=1):
+    if until - earth.DATE <= Date(year=1, month=0):
         temp = True
     for zone in earth.zones:
         zone.calculate_temperature(Radiation.calculate_absorbed_radiation(zone))
@@ -51,19 +45,35 @@ while earth.DATE < until:
         if temp:
             temperatures.append(zone.temperature)
     average_temp.append(earth.average_temp())
-
-        #    rysuje interatywny wykres ostatniego roku
     if temp:
-        linia, = plt.plot([], [], 'ob', ms=10)
-        x = np.array(temperatures)
-        print(x)
-        linia.set_xdata(x)
-        linia.set_ydata(y)
-        plt.title(earth.DATE)
-        plt.axis([np.min(x) * 1.05, np.max(x) * 1.05, -90, 90])
-        plt.draw()  # ponowne rysowanie
-        time.sleep(1)
-        del temperatures[:]
+       m = Basemap(width=12000000,height=9000000,projection='kav7',lat_0=0,lon_0=-0.)
+       # draw a boundary around the map, fill the background.
+       # this background will end up being the ocean color, since
+       # the continents will be drawn on top.
+       m.drawmapboundary(fill_color='aqua')
+       # fill continents, set lake color same as ocean color.
+       m.fillcontinents(color='coral',lake_color='aqua')
+       # draw parallels and meridians.
+       # label parallels on right and top
+       # meridians on bottom and left
+       m.drawparallels(np.arange(-90.,99.,15.),labels=[0,1,0,0])
+       # labels = [left,right,top,bottom]
+
+       # put some text next to the dot, offset a little bit
+       # (the offset is in map projection coordinates)
+       for i in range(0,12):
+           lon, lat = 0, -90+i*15 # Location of Boulder
+           # convert to map projection coords.
+           # Note that lon,lat can be scalars, lists or numpy arrays.
+           xpt,ypt = m(lon,lat)
+           # convert back to lat/lon
+           lonpt, latpt = m(xpt,ypt,inverse=True)
+           plt.text(xpt+100000,ypt+100000,"%.1f" % temperatures[i])
+       plt.title(earth.DATE)
+       name='temp_'+str(earth.DATE.get_month())+'-'+str(earth.DATE.year)+'r.pdf'
+       plt.savefig(name,format='pdf',bbox_inches='tight', pad_inches=0.05)
+       plt.close()
+       del temperatures[:]
     earth.DATE.step()
 # print(average_temp[-1])
 # years=np.arange(0, len(np.array(average_temp))/12, 1/12)
