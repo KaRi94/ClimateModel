@@ -69,8 +69,8 @@ while earth.DATE < until:
            # convert back to lat/lon
            lonpt, latpt = m(xpt,ypt,inverse=True)
            plt.text(xpt+100000,ypt+100000,"%.1f" % temperatures[i])
-       plt.title(earth.DATE)
-       name='temp_'+str(earth.DATE.get_month())+'-'+str(earth.DATE.year)+'r.pdf'
+       plt.title(str(earth.DATE)+' Avg temp: %.1f' % average_temp[-1])
+       name='plots/temperature_'+str(earth.DATE.get_month())+'-'+str(earth.DATE.year)+'r.pdf'
        plt.savefig(name,format='pdf',bbox_inches='tight', pad_inches=0.05)
        plt.close()
        del temperatures[:]
