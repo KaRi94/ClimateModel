@@ -47,6 +47,7 @@ while earth.DATE < until:
     for zone in earth.zones:
         zone.calculate_temperature(Radiation.calculate_absorbed_radiation(zone))
         zone.calculate_temperature(Radiation.calculate_emmited_radiation(zone))
+        zone.calculate_temperature(constants.EARTH_INTERNAL_HEAT/12)
         earth.calculate_energy_flow_between_zones()
         earth.calculate_albedo_changes_due_to_water_phase_transitions()
         results.write('%.1f'%zone.temperature+' ')
