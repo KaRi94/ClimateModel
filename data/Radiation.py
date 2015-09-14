@@ -19,7 +19,7 @@ class Radiation:
         """
         insolation = Radiation.MONTHLY_INSOLATION[zone.latitude()][zone.earth.get_month()-1]*constants.SOLAR_CONSTANT/1367
 
-        insolation -= insolation * ((1 - constants.CLOUD_ALBEDO) * np.random.normal(
+        insolation -= insolation * ( constants.CLOUD_ALBEDO * np.random.normal(
             zone.average_cloud_coverage['average'], zone.average_cloud_coverage['rms']))
         insolation -= insolation * constants.ATMOSPHERE_REFLECTED_COEFFICIENT
         return insolation
