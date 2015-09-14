@@ -85,7 +85,13 @@ while earth.DATE < until:
        del temperatures[:]
     earth.DATE.step()
 results.close()
-# print(average_temp[-1])
-# years=np.arange(0, len(np.array(average_temp))/12, 1/12)
-# plt.plot(years , np.array(average_temp), 'k-', lw=2)
-# plt.show()
+plt.rcParams['font.size'] = 18
+x = [0]
+y = np.arange(-90 + 7.5, 90, 15)
+years=np.arange(0, len(np.array(average_temp))/12, 1/12)
+plt.ylabel('average temperature [K]')
+plt.xlabel('year')
+plt.grid(True)
+plt.plot(years , np.array(average_temp), 'r-', lw=2)
+plt.savefig('results_and_plots/averages.pdf',format='pdf',bbox_inches='tight', pad_inches=0.05)
+plt.close()
