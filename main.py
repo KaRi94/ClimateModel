@@ -33,18 +33,27 @@ print('STARTING SIMULATION...')
 until = Date(year=constants.END_YEAR, month=1)
 temp = False
 temperatures = []
+results=open('results_and_plots/results.dat','w')
+results.write(constants.constants_print())
+results.write('date ')
+for zone in earth.zones:
+    results.write(str(zone.latitude())+' ')
+results.write('avg\n')
 while earth.DATE < until:
     # print('-----------------%s---------------------' % earth.DATE)
     if until - earth.DATE <= Date(year=1, month=0):
         temp = True
+    results.write(str(earth.DATE.year)+'/'+str(earth.DATE.month)+' ')
     for zone in earth.zones:
         zone.calculate_temperature(Radiation.calculate_absorbed_radiation(zone))
         zone.calculate_temperature(Radiation.calculate_emmited_radiation(zone))
         earth.calculate_energy_flow_between_zones()
         earth.calculate_albedo_changes_due_to_water_phase_transitions()
+        results.write('%.1f'%zone.temperature+' ')
         if temp:
             temperatures.append(zone.temperature)
     average_temp.append(earth.average_temp())
+    results.write("%.1f"%average_temp[-1]+'\n')
     if temp:
        m = Basemap(width=12000000,height=9000000,projection='kav7',lat_0=0,lon_0=-0.)
        # draw a boundary around the map, fill the background.
@@ -70,11 +79,12 @@ while earth.DATE < until:
            lonpt, latpt = m(xpt,ypt,inverse=True)
            plt.text(xpt+100000,ypt+100000,"%.1f" % temperatures[i])
        plt.title(str(earth.DATE)+' Avg temp: %.1f' % average_temp[-1])
-       name='plots/temperature_'+str(earth.DATE.get_month())+'-'+str(earth.DATE.year)+'r.pdf'
+       name='results_and_plots/temperature_'+str(earth.DATE.get_month())+'-'+str(earth.DATE.year)+'r.pdf'
        plt.savefig(name,format='pdf',bbox_inches='tight', pad_inches=0.05)
        plt.close()
        del temperatures[:]
     earth.DATE.step()
+results.close()
 # print(average_temp[-1])
 # years=np.arange(0, len(np.array(average_temp))/12, 1/12)
 # plt.plot(years , np.array(average_temp), 'k-', lw=2)
